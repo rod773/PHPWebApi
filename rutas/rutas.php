@@ -3,9 +3,10 @@
 $arrayRutas = explode("/", $_SERVER['REQUEST_URI']);
 /*
   echo "<pre>";
-  print_r($arrayRutas);
+  print_r(array_filter($arrayRutas));
   echo "<pre>";
- */
+*/
+
 if (count(array_filter($arrayRutas)) == 1) {
 
     $json = array(
@@ -16,7 +17,7 @@ if (count(array_filter($arrayRutas)) == 1) {
 
     return;
 } else {
-    if (count(array_filter($arrayRutas)) == 2) {
+    if (count(array_filter($arrayRutas)) == 2 && array_filter($arrayRutas)[1]=='api') {
         if (array_filter($arrayRutas)[2] == "cursos") {
             if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -54,7 +55,7 @@ if (count(array_filter($arrayRutas)) == 1) {
 
                 $cursos->update(array_filter($arrayRutas)[3]);
             }
-            
+
             if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'DELETE') {
 
                 $cursos = new ControladorCursos();
